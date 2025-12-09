@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class joueur implements Playbol {
+    public static Scanner scanner = new Scanner(System.in);
     private char symbol;
     private int id;
 
@@ -12,7 +13,6 @@ public class joueur implements Playbol {
     @Override
     public void play(Partie partie) {
         Matrice mat = partie.getMatrice();
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Joueur " + id + " joue avec le symbole " + symbol);
         System.out.println("État actuel de la matrice :");
         mat.print();
@@ -44,7 +44,6 @@ public class joueur implements Playbol {
                 System.out.println("Entrée invalide ou inconnu. Veuillez réessayer.");
             }
         }
-        scanner.close();
     }
 
     public void help(Partie partie) {
