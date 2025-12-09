@@ -1,18 +1,15 @@
 import java.util.Scanner;
 
 class Morpion {
+    public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Bienvenue au jeu du Morpion !");
         // Initialisation du jeu, des joueurs, etc.
-        Scanner scanner = new Scanner(System.in);
         GameSettings settings = initSettings();
         Matrice mat = new Matrice(settings.line, settings.row);
         Partie partie = new Partie(mat, settings.playbols, settings.extention, settings.triche);
         partie.start();
-
-        scanner.close();
-
     }
 
     public static boolean checkToInt(String str) {
@@ -25,9 +22,9 @@ class Morpion {
     }
 
     public static boolean AskYesNo(String question) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(question + " (yes/no)");
-        String response = scanner.nextLine().trim().toLowerCase();
+        String response = scanner.nextLine();
+        response = response.trim().toLowerCase();
         while (!response.equals("yes") && !response.equals("no") &&
                 !response.equals("oui") && !response.equals("non") &&
                 !response.equals("y") && !response.equals("n") && !response.equals("o")) {
@@ -35,13 +32,11 @@ class Morpion {
             System.out.println(question + " (yes/no)");
             response = scanner.nextLine().trim().toLowerCase();
         }
-        scanner.close();
         return response.equals("yes") || response.equals("oui") || response.equals("y") || response.equals("o");
 
     }
 
     public static int AskIntPositive(String question) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println(question);
         String response = scanner.nextLine().trim();
         while (!checkToInt(response) || Integer.parseInt(response) <= 0) {
@@ -49,16 +44,14 @@ class Morpion {
             System.out.println(question);
             response = scanner.nextLine().trim();
         }
-        scanner.close();
         return Integer.parseInt(response);
     }
 
     public static GameSettings initSettings() {
-        Scanner scanner = new Scanner(System.in);
         GameSettings settings = new GameSettings();
         System.out.println("Initialisation des paramètres du jeu...");
-        settings.extention = AskYesNo("Voulez-vous activer les extensions ? ");
-        settings.triche = AskYesNo("Voulez-vous activer le mode triche ? ");
+        settings.extention = AskYesNo("Voulez-vous activer les extensions ?");
+        settings.triche = AskYesNo("Voulez-vous activer le mode triche ?");
         if (settings.extention) {
             settings.row = AskIntPositive("Combien de colonnes pour la matrice ? ");
             settings.line = AskIntPositive("Combien de lignes pour la matrice ? ");
@@ -77,12 +70,10 @@ class Morpion {
             };
         }
 
-        scanner.close();
         return settings;
     }
 
     public static Playbol createPlaybol(int id) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Création du joueur " + id);
         System.out.println("Veuillez entrer le symbole du joueur " + id + " (un seul caractère) : ");
         String symbolInput = scanner.nextLine().trim();
@@ -92,7 +83,6 @@ class Morpion {
             symbolInput = scanner.nextLine().trim();
         }
         char symbol = symbolInput.charAt(0);
-        scanner.close();
         return new joueur(symbol, id);
     }
 }
