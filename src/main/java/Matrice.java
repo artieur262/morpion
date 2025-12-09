@@ -90,60 +90,76 @@ public class Matrice {
         return true;
     }
 
-    public char victoire() {
+    
+    public char victoire(){
+        victoire()
+    }
+
+
+    public char victoire(int nbAlignementVictoire) {
         // ligne
         if (grid.length == 0 || grid[0].length == 0) {
             return ' ';
         }
+        int compteur;
         for (int i = 0; i < grid.length; i++) {
             char car = grid[i][0];
+            compteur = 1;
             for (int j = 1; j < grid[i].length; j++) {
+                compteur++;
                 if (grid[i][j] != car) {
-                    car = ' ';
-                    break; // break pour optimiser. ça marche sans aussi
+                    compteur = 1;
+                    car = grid[i][j];
                 }
-            }
-            if (car != ' ') {
-                return car;
+                if (car != ' ' && compteur == nbAlignementVictoire) {
+                    return car;
+                }
             }
         }
 
         // colonnes
         for (int j = 0; j < grid[0].length; j++) {
             char car = grid[0][j];
+            compteur = 1;
             for (int i = 1; i < grid.length; i++) {
+                compteur++;
                 if (grid[i][j] != car) {
-                    car = ' ';
-                    break; // break pour optimiser. ça marche sans aussi
+                    car = grid[i][j];
+                    compteur = 1;
+                }
+                if (car != ' ' && compteur ==  nbAlignementVictoire) {
+                    return car;
                 }
             }
-            if (car != ' ') {
+
+        }
+
+        // diagonales haut-gauche à bas-droite
+        compteur = 1;
+        char car = grid[0][0];
+        for (int i = 1; i < grid.length; i++) {
+            compteur++;
+            if (grid[i][i] != car) {
+                car = grid[i][i];
+                compteur = 1;
+            }
+            if (car != ' ' && compteur == nbAlignementVictoire) {
                 return car;
             }
         }
 
-        // diagonales haut-gauche à bas-droite
-        char car = grid[0][0];
-        for (int i = 1; i < grid.length; i++) {
-            if (grid[i][i] != car) {
-                car = ' ';
-                break; // break pour optimiser. ça marche sans aussi
-            }
-        }
-        if (car != ' ') {
-            return car;
-        }
-
         // diagonales haut-droite à bas-gauche
+        compteur = 1;
         car = grid[0][grid.length - 1];
         for (int i = 1; i < grid.length; i++) {
+            compteur++;
             if (grid[i][grid.length - 1 - i] != car) {
-                car = ' ';
-                break; // break pour optimiser. ça marche sans aussi
+                car = grid[i][grid.length - 1 - i];
+                compteur = 1;
             }
-        }
-        if (car != ' ') {
-            return car;
+            if (car != ' ' && compteur == nbAlignementVictoire) {
+                return car;
+            }
         }
         return ' ';
     }
