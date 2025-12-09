@@ -17,7 +17,7 @@ public class joueur implements Playbol {
         System.out.println("État actuel de la matrice :");
         mat.print();
         boolean aJouer = false;
-        while (aJouer) {
+        while (!aJouer) {
             System.out.println("Veuillez entrer les coordonnées de votre coup :");
             String line = scanner.nextLine();
             line = line.trim(); // Supprimer les espaces avant et après
