@@ -211,4 +211,12 @@ public class Matrice {
     public int getNbRows() {
         return grid.length;
     }
+
+    public void vider() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = ' ';
+            }
+        }
+    }
 }
