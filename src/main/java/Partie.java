@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Partie {
 
     private Matrice mat;
@@ -6,12 +8,16 @@ public class Partie {
     private boolean extention;
     private boolean triche;
 
-    public Partie(Matrice mat, Playbol[] joueurs, boolean extention, boolean triche) {
+    public Partie(Matrice mat, Playbol[] joueurs, int playerIndex, boolean extention, boolean triche) {
         this.mat = mat;
         this.joueurs = joueurs;
-        this.currentPlayerIndex = 0;
+        this.currentPlayerIndex = playerIndex;
         this.extention = extention;
         this.triche = triche;
+    }
+
+    public Partie(Matrice mat, Playbol[] joueurs, boolean extention, boolean triche) {
+        this(mat, joueurs, -1, extention, triche);
     }
 
     public Partie(Matrice mat, Playbol[] joueurs) {
@@ -33,7 +39,9 @@ public class Partie {
     public void start() {
         boolean encour = true;
         while (encour) {
-            Playbol currentPlayer = joueurs[currentPlayerIndex];
+            int ancienPlayerIndex = currentPlayerIndex;
+            nextPlayer();
+            Playbol currentPlayer = joueurs[ancienPlayerIndex];
             currentPlayer.play(this);
             char winner = mat.victoire();
             if (winner != ' ') {
@@ -45,7 +53,32 @@ public class Partie {
                 System.out.println("Match nul !");
                 encour = false;
             }
-            currentPlayerIndex = (currentPlayerIndex + 1) % joueurs.length;
+
         }
     }
+
+    public Playbol getCurrentPlayer() {
+        return joueurs[currentPlayerIndex];
+    }
+
+    public void setCurrentPlayerIndex(int index) {
+        if (index >= -1 && index < joueurs.length) {
+            currentPlayerIndex = index;
+        } else {
+            throw new IllegalArgumentException("Index de joueur invalide.");
+        }
+    }
+
+    public void nextPlayer() {
+        if (joueurs.length == 0) {
+            throw new IllegalStateException("Aucun joueur dans la partie.");
+        }
+        if (currentPlayerIndex == -1) {
+            Random rand = new Random();
+            currentPlayerIndex = rand.nextInt(joueurs.length);
+            return;
+        }
+        currentPlayerIndex = (currentPlayerIndex + 1) % joueurs.length;
+    }
+
 }

@@ -68,4 +68,9 @@ public class joueur implements Playbol {
         helper.print();
     }
 
+
+    public char getSymbol() {
+        return symbol;
+    }
+
 }

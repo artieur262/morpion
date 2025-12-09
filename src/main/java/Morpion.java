@@ -47,21 +47,45 @@ class Morpion {
         return Integer.parseInt(response);
     }
 
+    public static int AskIntPositiveAndZero(String question) {
+        System.out.println(question);
+        String response = scanner.nextLine().trim();
+        while (!checkToInt(response) || Integer.parseInt(response) < 0) {
+            System.out.println("Entrée invalide. Veuillez entrer un entier positif ou 0.");
+            System.out.println(question);
+            response = scanner.nextLine().trim();
+        }
+        return Integer.parseInt(response);
+    }
+
+    public static int AskIntPositiveAndZeroMax(String question, int max) {
+        System.out.println(question);
+        String response = scanner.nextLine().trim();
+        while (!checkToInt(response) || Integer.parseInt(response) < 0 || Integer.parseInt(response) > max) {
+            System.out.println("Entrée invalide. Veuillez entrer un entier positif ou 0.");
+            System.out.println(question);
+            response = scanner.nextLine().trim();
+        }
+        return Integer.parseInt(response);
+    }
+
     public static GameSettings initSettings() {
         GameSettings settings = new GameSettings();
         System.out.println("Initialisation des paramètres du jeu...");
         settings.extention = AskYesNo("Voulez-vous activer les extensions ?");
         settings.triche = AskYesNo("Voulez-vous activer le mode triche ?");
+        int nbPlayers;
         if (settings.extention) {
             settings.row = AskIntPositive("Combien de colonnes pour la matrice ? ");
             settings.line = AskIntPositive("Combien de lignes pour la matrice ? ");
-            int nbPlayers = AskIntPositive("Combien de joueurs vont participer ? ");
+            nbPlayers = AskIntPositive("Combien de joueurs vont participer ? ");
             settings.playbols = new Playbol[nbPlayers];
             for (int i = 0; i < nbPlayers; i++) {
                 settings.playbols[i] = createPlaybol(i + 1);
             }
 
         } else {
+            nbPlayers = 2;
             settings.row = 3;
             settings.line = 3;
             settings.playbols = new Playbol[] {
@@ -69,6 +93,8 @@ class Morpion {
                     new joueur('O', 2)
             };
         }
+        settings.playerIndex = AskIntPositiveAndZeroMax(
+                "Quel joueur commence la partie ? (Entrez -1 pour un choix aléatoire)", nbPlayers) - 1;
 
         return settings;
     }
