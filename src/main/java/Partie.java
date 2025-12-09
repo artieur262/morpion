@@ -39,6 +39,7 @@ public class Partie {
     public void start() {
         boolean encour = true;
         while (encour) {
+            randomPlayer();
             int ancienPlayerIndex = currentPlayerIndex;
             nextPlayer();
             Playbol currentPlayer = joueurs[ancienPlayerIndex];
@@ -73,12 +74,33 @@ public class Partie {
         if (joueurs.length == 0) {
             throw new IllegalStateException("Aucun joueur dans la partie.");
         }
-        if (currentPlayerIndex == -1) {
-            Random rand = new Random();
-            currentPlayerIndex = rand.nextInt(joueurs.length);
+        if (randomPlayer()) {
             return;
         }
         currentPlayerIndex = (currentPlayerIndex + 1) % joueurs.length;
     }
 
+    public boolean randomPlayer() {
+        if (currentPlayerIndex == -1) {
+            Random rand = new Random();
+            currentPlayerIndex = rand.nextInt(joueurs.length);
+            return true;
+        }
+        return false;
+    }
+
+    public void precedingPlayer() {
+        if (joueurs.length == 0) {
+            throw new IllegalStateException("Aucun joueur dans la partie.");
+        }
+        currentPlayerIndex = (currentPlayerIndex - 1 + joueurs.length) % joueurs.length;
+    }
+
+    public boolean getExtention() {
+        return extention;
+    }
+
+    public boolean getTriche() {
+        return triche;
+    }
 }

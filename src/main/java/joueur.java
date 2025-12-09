@@ -40,8 +40,17 @@ public class joueur implements Playbol {
                 }
             } else if (line.equals("help") || line.equals("aide")) {
                 help(partie);
+            } else if (partie.getTriche() && (line.equals("random") || line.equals("aleatoire"))) {
+                prochainTourAleatoire(partie);
+                aJouer = true;
+            } else if (partie.getTriche() && (line.equals("force") || line.equals("forcee"))) {
+                victoireForcee(partie);
+                aJouer = true;
+            } else if (partie.getTriche() && (line.equals("second") || line.equals("deuxieme"))) {
+                deuxiemeTour(partie);
+                aJouer = true;
             } else {
-                System.out.println("Entrée invalide ou inconnu. Veuillez réessayer.");
+                System.out.println("Entrée invalide. Veuillez réessayer.");
             }
         }
     }
@@ -68,6 +77,25 @@ public class joueur implements Playbol {
         helper.print();
     }
 
+    public void prochainTourAleatoire(Partie partie) {
+        partie.setCurrentPlayerIndex(-1);
+    }
+
+    public void victoireForcee(Partie partie) {
+        Matrice mat = partie.getMatrice();
+        for (int i = 0; i < mat.getNbRows(); i++) {
+            for (int j = 0; j < mat.getNbCols(); j++) {
+                if (mat.isCellEmpty(i, j)) {
+                    mat.setCell(i, j, symbol);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void deuxiemeTour(Partie partie) {
+        partie.precedingPlayer();
+    }
 
     public char getSymbol() {
         return symbol;

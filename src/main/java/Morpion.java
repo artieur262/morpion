@@ -94,7 +94,7 @@ class Morpion {
             };
         }
         settings.playerIndex = AskIntPositiveAndZeroMax(
-                "Quel joueur commence la partie ? (Entrez -1 pour un choix aléatoire)", nbPlayers) - 1;
+                "Quel joueur commence la partie ? (Entrez 0 pour un choix aléatoire)", nbPlayers) - 1;
 
         return settings;
     }
