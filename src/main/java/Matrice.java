@@ -136,6 +136,23 @@ public class Matrice {
         return new char[][][] { this.getGrid(), firstRotation, secondRotation, thirdRotation };
     }
 
+    public int[][] getCasesEmpty() {
+        int count = 0;
+        int[][] emptyPositionsTemp = new int[grid.length * grid[0].length][2];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == ' ') {
+                    emptyPositionsTemp[count][0] = i;
+                    emptyPositionsTemp[count][1] = j;
+                    count++;
+                }
+            }
+        }
+        int[][] emptyPositions = new int[count][2];
+        System.arraycopy(emptyPositionsTemp, 0, emptyPositions, 0, count);
+        return emptyPositions;
+    }
+
     public static char[][] tourneGrid(char[][] original) {
         int n = original.length;
         char[][] rotated = new char[n][n];
@@ -155,4 +172,5 @@ public class Matrice {
         }
         return copy;
     }
+
 }
