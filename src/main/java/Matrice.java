@@ -10,6 +10,15 @@ public class Matrice {
         }
     }
 
+    public Matrice(int rows, int cols) {
+        grid = new char[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid[i][j] = ' ';
+            }
+        }
+    }
+
     public Matrice() {
         this(3);
     }
@@ -28,6 +37,18 @@ public class Matrice {
 
     public void setCell(int row, int col, char value) {
         grid[row][col] = value;
+    }
+
+    public boolean isCellEmpty(int row, int col) {
+        return grid[row][col] == ' ';
+    }
+
+    public boolean placeSymbol(int row, int col, char symbol) {
+        if (isCellEmpty(row, col)) {
+            setCell(row, col, symbol);
+            return true;
+        }
+        return false;
     }
 
     public int getSize() {
@@ -173,4 +194,21 @@ public class Matrice {
         return copy;
     }
 
+    public int nbCase() {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        return grid.length * grid[0].length;
+    }
+
+    public int getNbCols() {
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+        return grid[0].length;
+    }
+
+    public int getNbRows() {
+        return grid.length;
+    }
 }
