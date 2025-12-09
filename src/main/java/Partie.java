@@ -25,24 +25,25 @@ public class Partie {
     public boolean isExtention() {
         return extention;
     }
-    
+
     public boolean isTriche() {
         return triche;
     }
 
     public void start() {
-        while (true) {
+        boolean encour = true;
+        while (encour) {
             Playbol currentPlayer = joueurs[currentPlayerIndex];
             currentPlayer.play(this);
             char winner = mat.victoire();
             if (winner != ' ') {
+                mat.print();
                 System.out.println("Le joueur avec le symbole " + winner + " a gagné !");
-                mat.print();
-                break;
+                encour = false;
             } else if (mat.isFull()) {
-                System.out.println("Match nul !");
                 mat.print();
-                break;
+                System.out.println("Match nul !");
+                encour = false;
             }
             currentPlayerIndex = (currentPlayerIndex + 1) % joueurs.length;
         }
