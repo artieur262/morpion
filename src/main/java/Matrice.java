@@ -92,7 +92,7 @@ public class Matrice {
 
     
     public char victoire(){
-        victoire(3);
+        return victoire(3);
     }
 
 
