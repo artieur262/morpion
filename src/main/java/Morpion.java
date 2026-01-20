@@ -120,8 +120,7 @@ class Morpion {
     }
 
     public static char choseTypePlaybol(int id) {
-        System.out.println("Choisissez le type du joueur " + id + " :");
-        System.out.print("0. choix d'une ia aléatoire");
+        System.out.println("0. choix d'une ia aléatoire");
         System.out.println("1. humain");
         System.out.println("2. IA (facile)");
         int choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type du joueur " + id + " :", 2);
