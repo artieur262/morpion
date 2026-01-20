@@ -55,16 +55,20 @@ public class Matrice {
         return grid.length;
     }
 
+    private void printRowSeparator() {
+        for (int j = 0; j < grid[0].length; j++) {
+            System.out.print(" ---");
+        }
+        System.out.println();
+    }   
+
     public void print() {
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             System.out.println("Matrice es vide.");
             return;
         }
-        System.out.print(" ");
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                System.out.print(" ---");
-            }
+            printRowSeparator();
             System.out.println();
             System.out.print("| ");
             for (int j = 0; j < grid[i].length; j++) {
@@ -73,10 +77,7 @@ public class Matrice {
 
             System.out.println();
         }
-        for (int j = 0; j < grid[0].length; j++) {
-            System.out.print(" ---");
-        }
-        System.out.println();
+        printRowSeparator();
     }
 
     public boolean isFull() {
