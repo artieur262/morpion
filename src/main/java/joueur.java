@@ -40,15 +40,15 @@ public class joueur implements Playbol {
                 }
             } else if (line.equals("help") || line.equals("aide")) {
                 help(partie);
-            } else if (partie.getTriche() && (line.equals("random") || line.equals("aleatoire"))) {
-                prochainTourAleatoire(partie);
-                aJouer = true;
-            } else if (partie.getTriche() && (line.equals("force") || line.equals("forcee"))) {
-                victoireForcee(partie);
-                aJouer = true;
-            } else if (partie.getTriche() && (line.equals("second") || line.equals("deuxieme"))) {
-                deuxiemeTour(partie);
-                aJouer = true;
+            // } else if (partie.getTriche() && (line.equals("random") || line.equals("aleatoire"))) {
+            //     prochainTourAleatoire(partie);
+            //     aJouer = true;
+            // } else if (partie.getTriche() && (line.equals("force") || line.equals("forcee"))) {
+            //     victoireForcee(partie);
+            //     aJouer = true;
+            // } else if (partie.getTriche() && (line.equals("second") || line.equals("deuxieme"))) {
+            //     deuxiemeTour(partie);
+            //     aJouer = true;
             } else {
                 System.out.println("Entrée invalide. Veuillez réessayer.");
             }

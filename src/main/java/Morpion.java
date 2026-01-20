@@ -72,8 +72,9 @@ class Morpion {
     public static GameSettings initSettings() {
         GameSettings settings = new GameSettings();
         System.out.println("Initialisation des paramètres du jeu...");
-        settings.extention = AskYesNo("Voulez-vous activer les extensions ?");
-        settings.triche = AskYesNo("Voulez-vous activer le mode triche ?");
+        boolean unlock = false;
+        settings.extention = unlock && AskYesNo("Voulez-vous activer les extensions ?");
+        settings.triche = unlock && AskYesNo("Voulez-vous activer le mode triche ?");
         int nbPlayers;
         if (settings.extention) {
             settings.row = AskIntPositive("Combien de colonnes pour la matrice ? ");
@@ -83,7 +84,6 @@ class Morpion {
             for (int i = 0; i < nbPlayers; i++) {
                 settings.playbols[i] = createPlaybol(i + 1);
             }
-
         } else {
             nbPlayers = 2;
             settings.row = 3;
