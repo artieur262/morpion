@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 class Morpion {
     public static Scanner scanner = new Scanner(System.in);
@@ -110,5 +111,27 @@ class Morpion {
         }
         char symbol = symbolInput.charAt(0);
         return new joueur(symbol, id);
+    }
+
+    public static char choseTypePlaybol() {
+        System.out.println("Choisissez le type de joueur :");
+        System.out.print("0. choix d'une ia aléatoire");
+        System.out.println("1. humain");
+        System.out.println("2. IA (facile)");
+        int choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type de joueur :", 2);
+        while (choiceInt < 0 || choiceInt > 2) {
+            System.out.println("Choix invalide. Veuillez réessayer.");
+            choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type de joueur :", 2);
+        }
+        if (choiceInt == 0) {
+            choiceInt = 2;
+        }
+        return switch (choiceInt) {
+            case 1 -> 'h';
+            case 2 -> 'f';
+            default ->  throw new IllegalArgumentException("Type de joueur invalide.");
+
+        
+        
     }
 }
