@@ -59,7 +59,6 @@ public class Matrice {
         for (int j = 0; j < grid[0].length; j++) {
             System.out.print(" ---");
         }
-        System.out.println();
     }   
 
     public void print() {
