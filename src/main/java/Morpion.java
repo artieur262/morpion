@@ -89,10 +89,16 @@ class Morpion {
             nbPlayers = 2;
             settings.row = 3;
             settings.line = 3;
-            settings.playbols = new Playbol[] {
-                    new joueur('X', 1),
-                    new joueur('O', 2)
-            };
+            char[] symbols = new char[] { 'X', 'O' };
+            settings.playbols = new Playbol[nbPlayers];
+            for (int i = 0; i < nbPlayers; i++) {
+                char type = choseTypePlaybol(i + 1);
+                settings.playbols[i] = createPlaybolOfType(type, symbols[i], i + 1);
+            }
+            // settings.playbols = new Playbol[] {
+            // new joueur('X', 1),
+            // new joueur('O', 2)
+            // };
         }
         settings.playerIndex = AskIntPositiveAndZeroMax(
                 "Quel joueur commence la partie ? (Entrez 0 pour un choix aléatoire)", nbPlayers) - 1;
@@ -113,15 +119,14 @@ class Morpion {
         return new joueur(symbol, id);
     }
 
-    public static char choseTypePlaybol() {
-        System.out.println("Choisissez le type de joueur :");
-        System.out.print("0. choix d'une ia aléatoire");
+    public static char choseTypePlaybol(int id) {
+        System.out.println("0. choix d'une ia aléatoire");
         System.out.println("1. humain");
         System.out.println("2. IA (facile)");
-        int choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type de joueur :", 2);
+        int choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type du joueur " + id + " :", 2);
         while (choiceInt < 0 || choiceInt > 2) {
             System.out.println("Choix invalide. Veuillez réessayer.");
-            choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type de joueur :", 2);
+            choiceInt = AskIntPositiveAndZeroMax("Entrez le numéro correspondant au type du joueur " + id + " :", 2);
         }
         if (choiceInt == 0) {
             choiceInt = 2;
@@ -129,8 +134,16 @@ class Morpion {
         return switch (choiceInt) {
             case 1 -> 'h';
             case 2 -> 'f';
-            default -> throw new IllegalArgumentException("Type de joueur invalide.");
+            default -> throw new IllegalArgumentException("Type du joueur invalide.");
 
+        };
+    }
+
+    public static Playbol createPlaybolOfType(char type, char symbol, int id) {
+        return switch (type) {
+            case 'h' -> new joueur(symbol, id);
+            case 'f' -> new IABete(symbol, id);
+            default -> throw new IllegalArgumentException("Type du joueur invalide.");
         };
     }
 }
