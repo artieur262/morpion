@@ -129,9 +129,8 @@ class Morpion {
         return switch (choiceInt) {
             case 1 -> 'h';
             case 2 -> 'f';
-            default ->  throw new IllegalArgumentException("Type de joueur invalide.");
+            default -> throw new IllegalArgumentException("Type de joueur invalide.");
 
-        
-        
+        };
     }
 }
